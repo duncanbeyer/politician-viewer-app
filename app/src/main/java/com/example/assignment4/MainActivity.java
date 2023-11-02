@@ -45,11 +45,13 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "MainActivity";
+    final String key = "AIzaSyCgnHHKJhsR_5VKif-cOOmku2R0egOQL70";
     Toolbar myToolbar;
     LinearLayoutManager linearLayoutManager;
 
     TextView tLocation;
     String sLocation;
+    String zip;
     ConstraintLayout loc_layout;
     ArrayList<Person> people = new ArrayList<>();
     RecyclerView recyclerView;
@@ -71,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         myToolbar.setTitle(R.string.toolbar_title);
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         myToolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_purple));
-
         setSupportActionBar(myToolbar);
 
         adapter = new PersonAdapter(people, this);
@@ -81,12 +82,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setBackgroundColor(getResources().getColor(R.color.white));
 
-        tryDownload();
-
         locationClient =
                 LocationServices.getFusedLocationProviderClient(this);
 
         getLocation();
+
+    }
+
+    void doLocation() {
+
+        String[] ss = sLocation.split(", ");
+        String temp = ", ";
+        tLocation.setText(ss[0] + temp + ss[1] + temp + ss[2]);
+        zip = ss[2].substring(3,8);
+        Log.d(TAG,"just set zip to " + zip);
+        tryDownload();
 
     }
 
@@ -166,13 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    void doLocation() {
 
-        String[] ss = sLocation.split(", ");
-        String temp = ", ";
-        tLocation.setText(ss[0] + temp + ss[1] + temp + ss[2]);
-
-    }
 
     Person setPerson(String role, JSONObject data) {
         try {
@@ -207,17 +211,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     void tryDownload() {
-        String url = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyCgnHHKJhsR_5VKif-cOOmku2R0egOQL70&address=60605";
+        Log.d(TAG,"in tryDownload zip is " + zip);
+        String url = "https://www.googleapis.com/civicinfo/v2/representatives?key=" + key + "&address=" + zip;
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
                 null,
                 response -> {
-//                    try {
-//                        doLocation(response.getJSONObject("normalizedInput").getString("city"), response.getJSONObject("normalizedInput").getString("state"), response.getJSONObject("normalizedInput").getString("zip"));
-//                        Log.d(TAG,response.getJSONObject("normalizedInput").toString());
-//                    } catch (Exception e) {}
                     fillList(response);
                 },
                 error -> {
@@ -225,8 +226,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
 
         queue.add(jsonObjectRequest);
-
-
     }
 
     @Override

@@ -48,7 +48,7 @@ public class PersonAdapter  extends RecyclerView.Adapter<PersonHolder> {
 
         if (urlString.length() > 0) {
             Log.d(TAG, "url: " + urlString);
-            Picasso.get().load(urlString).into(holder.pic, new Callback() {
+            Picasso.get().load(urlString).error(R.drawable.missing).into(holder.pic, new Callback() {
                 @Override
                 public void onSuccess() {
                     Log.d(TAG,"success");

@@ -7,4 +7,8 @@
     <string name="box5">Version 1.0</string>
     <string name="denied_location">Must give location permission</string>
     <string name="location_error">cannot determine location</string>
+    <string name="alert_hint">Enter a city/state or zip</string>
+    <string name="alert_title">Enter Address</string>
+    <string name="alert_ok">OK</string>
+    <string name="alert_cancel">CANCEL</string>
 </resources>
