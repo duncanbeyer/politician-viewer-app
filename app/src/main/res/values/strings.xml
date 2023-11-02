@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Assignment 4</string>
+    <string name="toolbar_title">Civil Advocacy</string>
+    <string name="box2">Data provided by</string>
+    <string name="box3">Google Civic Information API</string>
+    <string name="box4">&#169;2023, Duncan Beyer</string>
+    <string name="box5">Version 1.0</string>
+    <string name="denied_location">Must give location permission</string>
+    <string name="location_error">cannot determine location</string>
+</resources>
