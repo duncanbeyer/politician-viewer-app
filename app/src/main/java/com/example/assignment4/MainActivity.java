@@ -1,6 +1,7 @@
 package com.example.assignment4;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -31,9 +33,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView tLocation;
     String sLocation;
-    String zip;
+    String addr;
     ConstraintLayout loc_layout;
     ArrayList<Person> people = new ArrayList<>();
     RecyclerView recyclerView;
@@ -94,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String[] ss = sLocation.split(", ");
         String temp = ", ";
         tLocation.setText(ss[0] + temp + ss[1] + temp + ss[2]);
-        zip = ss[2].substring(3,8);
-        Log.d(TAG,"just set zip to " + zip);
+        addr = ss[2].substring(3,8);
+        Log.d(TAG,"just set addr to " + addr);
         tryDownload();
 
     }
@@ -168,12 +172,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
 
         } else if (item.getItemId() == R.id.menuB) {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View dialog = inflater.inflate(R.layout.search_layout, null);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            EditText temp = dialog.findViewById(R.id.text_box);
+            builder.setView(dialog)
+                    .setPositiveButton(getString(R.string.alert_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d(TAG,"ok clicked");
+
+                            newAddr(temp.getText().toString());
+
+                        }
+                    });
+            builder.setView(dialog)
+                    .setNegativeButton(getString(R.string.alert_cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d(TAG,"cancel clicked");
+                        }
+                    });
+
+            builder.show();
+
             Log.d(TAG,"SEARCH PRESSED");
             return true;
         }
         else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    void newAddr(String s) {
+
+        Log.d(TAG,"new addr with " + s);
+        String[] temp = s.split(" ");
+        addr = temp[0];
+        for (int i = 1;i < temp.length;i++) {
+            addr += "%20";
+            addr += temp[i];
+        }
+
+        tryDownload();
+        tLocation.setText(addr);
     }
 
 
@@ -209,10 +252,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    void emptyList() {
+        while (people.size() > 0) {
+            people.remove(0);
+            adapter.notifyItemRemoved(0);
+        }
+    }
+
 
     void tryDownload() {
-        Log.d(TAG,"in tryDownload zip is " + zip);
-        String url = "https://www.googleapis.com/civicinfo/v2/representatives?key=" + key + "&address=" + zip;
+
+        emptyList();
+        Log.d(TAG,"in tryDownload addr is " + addr);
+        String url = "https://www.googleapis.com/civicinfo/v2/representatives?key=" + key + "&address=" + addr;
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
