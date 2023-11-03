@@ -11,4 +11,8 @@
     <string name="alert_title">Enter Address</string>
     <string name="alert_ok">OK</string>
     <string name="alert_cancel">CANCEL</string>
+    <string name="address_label">Address:</string>
+    <string name="phone_label">Phone:</string>
+    <string name="email_label">Email:</string>
+    <string name="website_label">Website:</string>
 </resources>
