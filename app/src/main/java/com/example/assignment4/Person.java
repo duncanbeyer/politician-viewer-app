@@ -1,13 +1,17 @@
 package com.example.assignment4;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Person {
+public class Person implements Parcelable  {
     private static final String TAG = "Person";
-String  name, job, party, address, phone, email, website, imageUrl;
+String  name, job, party, address, phone, email, website, imageUrl, fb, yt, x;
 
 
 
@@ -51,7 +55,55 @@ String  name, job, party, address, phone, email, website, imageUrl;
             address += ", " + address_data.getJSONObject(0).getString("state");
             address += " " + address_data.getJSONObject(0).getString("zip");
         } catch (Exception j) {}
+
+        fb = "";
+        yt = "";
+        x = "";
+        try {
+            JSONArray channels = data.getJSONArray("channels");
+            JSONObject temp;
+            for (int i = 0;i < channels.length();i++) {
+                temp = channels.getJSONObject(i);
+                if (temp.getString("type").equals("Facebook")) {
+                    fb = temp.getString("id");
+                }
+                else if (temp.getString("type").equals("Twitter")) {
+                    x = temp.getString("id");
+                }
+                else {
+                    yt = temp.getString("id");
+                }
+            }
+        } catch (Exception j) {
+            Log.d(TAG,"Exception setting channels");
+        }
     }
+
+    protected Person(Parcel in) {
+        name = in.readString();
+        job = in.readString();
+        party = in.readString();
+        address = in.readString();
+        phone = in.readString();
+        email = in.readString();
+        website = in.readString();
+        imageUrl = in.readString();
+        fb = in.readString();
+        yt = in.readString();
+        x = in.readString();
+    }
+
+    public static final Creator<Person> CREATOR = new Creator<Person>() {
+        @Override
+        public Person createFromParcel(Parcel in) {
+            return new Person(in);
+        }
+
+        @Override
+        public Person[] newArray(int size) {
+            return new Person[size];
+        }
+    };
 
     public String getInfo(String s) {
 
@@ -72,7 +124,12 @@ String  name, job, party, address, phone, email, website, imageUrl;
                 return website;
             case "imageUrl":
                 return imageUrl;
-
+            case "yt":
+                return yt;
+            case "fb":
+                return fb;
+            case "x":
+                return x;
         }
 
         return null;
@@ -89,6 +146,28 @@ String  name, job, party, address, phone, email, website, imageUrl;
         Log.d(TAG, email);
         Log.d(TAG, website);
         Log.d(TAG, imageUrl);
+        Log.d(TAG,yt);
+        Log.d(TAG,fb);
+        Log.d(TAG,x);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(job);
+        parcel.writeString(party);
+        parcel.writeString(address);
+        parcel.writeString(phone);
+        parcel.writeString(email);
+        parcel.writeString(website);
+        parcel.writeString(imageUrl);
+        parcel.writeString(fb);
+        parcel.writeString(yt);
+        parcel.writeString(x);
+    }
 }

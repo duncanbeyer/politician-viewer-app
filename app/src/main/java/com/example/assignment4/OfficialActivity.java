@@ -1,5 +1,7 @@
 package com.example.assignment4;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -16,9 +19,11 @@ import com.squareup.picasso.Picasso;
 public class OfficialActivity  extends AppCompatActivity implements View.OnClickListener{
     Toolbar toolbar;
     private static final String TAG = "OfficialActivity";
-    String addr = "";
+    ConstraintLayout loc_layout;
+    String addr;
     TextView location, name, job, party, label1, box1, label2, box2, label3, box3, label4, box4;
     ImageView portrait, partyLogo, twitterLogo, youtubeLogo, facebookLogo;
+    String ytLink, xLink, fbLink;
     Person person;
 
 
@@ -27,7 +32,18 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_official);
 
+
+
+        loc_layout = findViewById(R.id.loc_layout);
+        loc_layout.setBackgroundColor(getResources().getColor(R.color.prim_purple));
         location = findViewById(R.id.location);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.toolbar_title);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_purple));
+        setSupportActionBar(toolbar);
+
         name = findViewById(R.id.name);
         job = findViewById(R.id.job);
         party = findViewById(R.id.party);
@@ -58,7 +74,29 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
 
         name.setText(person.getInfo("name"));
         job.setText(person.getInfo("job"));
-        party.setText("(" + person.getInfo("name") + ")");
+        party.setText("(" + person.getInfo("party") + ")");
+
+        ytLink = person.getInfo("yt");
+        xLink = person.getInfo("x");
+        fbLink = person.getInfo("fb");
+
+        doImages();
+
+        doBoxes(0,0);
+
+    }
+
+    void doImages() {
+
+        View view = this.getWindow().getDecorView();
+        if (person.getInfo("party").equals("Democratic Party")) {
+            view.setBackgroundColor(getResources().getColor(R.color.dem_blue));
+            partyLogo.setImageResource(R.drawable.dem_logo);
+        }
+        else if (person.getInfo("party").equals("Republican Party")) {
+            view.setBackgroundColor(getResources().getColor(R.color.rep_red));
+            partyLogo.setImageResource(R.drawable.rep_logo);
+        }
 
         String urlString = person.getInfo("imageUrl");
         if (urlString.length() > 0) {
@@ -69,7 +107,30 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
             portrait.setImageResource(R.drawable.missing);
         }
 
-        doBoxes(0,0);
+        if (fbLink.length() > 0) {
+            facebookLogo.setImageResource(R.drawable.facebook);
+            facebookLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {openLink(v,
+                        ("https://www.facebook.com/alabamapublicserivcecommission" + fbLink));}
+            });
+        }
+        if (ytLink.length() > 0) {
+            youtubeLogo.setImageResource(R.drawable.youtube);
+            youtubeLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {openLink(v,
+                        ("https://www.youtube.com/" + ytLink));}
+            });
+        }
+        if (xLink.length() > 0) {
+            twitterLogo.setImageResource(R.drawable.twitter);
+            twitterLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {openLink(v,
+                        ("https://www.twitter.com/" + xLink));}
+            });
+        }
 
     }
 
@@ -83,20 +144,29 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
         switch (i) {
             case 0:
                 if (person.getInfo("address").length() > 0) {
+                    Log.d(TAG,"s = address");
                     s = "address";
                 }
+                break;
             case 1:
                 if (person.getInfo("phone").length() > 0) {
+                    Log.d(TAG,"s = phone");
                     s = "phone";
                 }
+                break;
+
             case 2:
                 if (person.getInfo("email").length() > 0) {
+                    Log.d(TAG,"s = email");
                     s = "email";
                 }
+                break;
             case 3:
                 if (person.getInfo("website").length() > 0) {
+                    Log.d(TAG,"s = website");
                     s = "website";
                 }
+                break;
         }
 
         if (s.length() == 0) {
@@ -109,20 +179,39 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
 
         switch (j) {
             case 0:
+                Log.d(TAG,"Setting 1");
                 label1.setText(tempLabel);
                 box1.setText(tempBox);
+                break;
             case 1:
+                Log.d(TAG,"Setting 2");
                 label2.setText(tempLabel);
                 box2.setText(tempBox);
+                break;
             case 2:
+                Log.d(TAG,"Setting 3");
                 label3.setText(tempLabel);
                 box3.setText(tempBox);
+                break;
             case 3:
+                Log.d(TAG,"Setting 4");
                 label4.setText(tempLabel);
                 box4.setText(tempBox);
+                break;
         }
         doBoxes(i+1, j+1);
 
+    }
+
+    void openLink(View v, String s) {
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(s));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+        else {
+            Log.d(TAG,"NULL when opening copright link.");
+        }
     }
 
     @Override

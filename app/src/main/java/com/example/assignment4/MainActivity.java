@@ -93,12 +93,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, OfficialActivity.class);
+        intent.putExtra("person", people.get(recyclerView.getChildLayoutPosition(v)));
+        intent.putExtra("addr", addr);
+        startActivity(intent);
+    }
+
     void doLocation() {
 
         String[] ss = sLocation.split(", ");
         String temp = ", ";
-        tLocation.setText(ss[0] + temp + ss[1] + temp + ss[2]);
-        addr = ss[2].substring(3,8);
+        addr = ss[0] + temp + ss[1] + temp + ss[2];
+        tLocation.setText(addr);
         Log.d(TAG,"just set addr to " + addr);
         tryDownload();
 
@@ -280,8 +288,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         queue.add(jsonObjectRequest);
     }
 
-    @Override
-    public void onClick(View view) {
 
-    }
 }
