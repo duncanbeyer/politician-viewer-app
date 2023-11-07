@@ -31,6 +31,8 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tLocation;
     String sLocation;
     String addr;
-    ConstraintLayout loc_layout;
+    ConstraintLayout loc_layout, noInternetLayout;
     ArrayList<Person> people = new ArrayList<>();
     RecyclerView recyclerView;
     PersonAdapter adapter;
@@ -69,8 +71,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(getResources().getColor(R.color.white));
+
+
         loc_layout = findViewById(R.id.loc_layout);
         loc_layout.setBackgroundColor(getResources().getColor(R.color.prim_purple));
+        tLocation = findViewById(R.id.location);
+
+        noInternetLayout = findViewById(R.id.no_int_layout);
+        noInternetLayout.setVisibility(View.GONE);
+
         tLocation = findViewById(R.id.location);
 
         myToolbar = findViewById(R.id.toolbar);
@@ -113,6 +124,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void getLocation() {
+
+        if (!gotInternet()) {
+            noInternet();
+            return;
+        }
+
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
             return;
@@ -260,6 +277,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    void noInternet() {
+        tLocation.setText(R.string.no_loc);
+        noInternetLayout.setVisibility(View.VISIBLE);
+        noInternetLayout.setBackground(getResources().getDrawable(R.drawable.shape));
+        recyclerView.setVisibility(View.GONE);
+
+
+    }
+
     void emptyList() {
         while (people.size() > 0) {
             people.remove(0);
@@ -286,6 +312,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
 
         queue.add(jsonObjectRequest);
+    }
+
+    boolean gotInternet() {
+
+        ConnectivityManager connectivityManager = getSystemService(ConnectivityManager.class);
+
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return (networkInfo != null && networkInfo.isConnectedOrConnecting());
+
     }
 
 

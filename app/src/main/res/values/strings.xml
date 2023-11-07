@@ -15,4 +15,7 @@
     <string name="phone_label">Phone:</string>
     <string name="email_label">Email:</string>
     <string name="website_label">Website:</string>
+    <string name="no_loc">No Data For Location</string>
+    <string name="no_title">No Network Connection</string>
+    <string name="no_body">Data cannot be accessed/loaded without an internet connection.</string>
 </resources>

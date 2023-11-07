@@ -1,6 +1,8 @@
 package com.example.assignment4;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +35,10 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_official);
 
 
+
+        loc_layout = findViewById(R.id.loc_layout);
+        loc_layout.setBackgroundColor(getResources().getColor(R.color.prim_purple));
+        location = findViewById(R.id.location);
 
         loc_layout = findViewById(R.id.loc_layout);
         loc_layout.setBackgroundColor(getResources().getColor(R.color.prim_purple));
@@ -92,10 +98,20 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
         if (person.getInfo("party").equals("Democratic Party")) {
             view.setBackgroundColor(getResources().getColor(R.color.dem_blue));
             partyLogo.setImageResource(R.drawable.dem_logo);
+            partyLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {openLink(v,
+                        "https://democrats.org");}
+            });
         }
         else if (person.getInfo("party").equals("Republican Party")) {
             view.setBackgroundColor(getResources().getColor(R.color.rep_red));
             partyLogo.setImageResource(R.drawable.rep_logo);
+            partyLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {openLink(v,
+                        "https://www.gop.com");}
+            });
         }
 
         String urlString = person.getInfo("imageUrl");
@@ -213,6 +229,8 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
             Log.d(TAG,"NULL when opening copright link.");
         }
     }
+
+
 
     @Override
     public void onClick(View view) {
