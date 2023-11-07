@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.text.util.Linkify;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +28,7 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
     ImageView portrait, partyLogo, twitterLogo, youtubeLogo, facebookLogo;
     String ytLink, xLink, fbLink;
     Person person;
+    boolean photo = false;
 
 
     @Override
@@ -40,9 +42,7 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
         loc_layout.setBackgroundColor(getResources().getColor(R.color.prim_purple));
         location = findViewById(R.id.location);
 
-        loc_layout = findViewById(R.id.loc_layout);
-        loc_layout.setBackgroundColor(getResources().getColor(R.color.prim_purple));
-        location = findViewById(R.id.location);
+
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.toolbar_title);
@@ -118,10 +118,18 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
         if (urlString.length() > 0) {
             Log.d(TAG, "url: " + urlString);
             Picasso.get().load(urlString).error(R.drawable.brokenimage).into(portrait);
+            portrait.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openPhoto(v);
+                }
+            });
         }
         else {
             portrait.setImageResource(R.drawable.missing);
         }
+
+
 
         if (fbLink.length() > 0) {
             facebookLogo.setImageResource(R.drawable.facebook);
@@ -198,24 +206,44 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
                 Log.d(TAG,"Setting 1");
                 label1.setText(tempLabel);
                 box1.setText(tempBox);
+                Linkify.addLinks(box1, Linkify.ALL);
+                box1.setLinkTextColor(getResources().getColor(R.color.white));
                 break;
             case 1:
                 Log.d(TAG,"Setting 2");
                 label2.setText(tempLabel);
                 box2.setText(tempBox);
+                Linkify.addLinks(box2, Linkify.ALL);
+                box2.setLinkTextColor(getResources().getColor(R.color.white));
                 break;
             case 2:
                 Log.d(TAG,"Setting 3");
                 label3.setText(tempLabel);
                 box3.setText(tempBox);
+                Linkify.addLinks(box3, Linkify.ALL);
+                box3.setLinkTextColor(getResources().getColor(R.color.white));
                 break;
             case 3:
                 Log.d(TAG,"Setting 4");
                 label4.setText(tempLabel);
                 box4.setText(tempBox);
+                Linkify.addLinks(box4, Linkify.ALL);
+                box4.setLinkTextColor(getResources().getColor(R.color.white));
                 break;
         }
         doBoxes(i+1, j+1);
+
+    }
+
+    void openPhoto(View v) {
+
+        if (photo) {
+            Log.d(TAG,portrait.getDrawable().toString());
+            Intent intent = new Intent(this, PhotoActivity.class);
+            intent.putExtra("person", person);
+            intent.putExtra("addr", addr);
+            startActivity(intent);
+        }
 
     }
 
