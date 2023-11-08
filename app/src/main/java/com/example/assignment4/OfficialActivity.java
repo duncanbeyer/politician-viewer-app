@@ -1,6 +1,7 @@
 package com.example.assignment4;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.text.util.Linkify;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -160,6 +162,7 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
 
     void doBoxes(int i, int j) { // i is which info, j is which box we are on
         if (i > 3 || j > 3) {
+            doChannels(j);
             return;
         }
 
@@ -235,15 +238,51 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
 
     }
 
+    void doChannels(int j) {
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return;
+        }
+
+        ConstraintLayout constraintLayout = findViewById(R.id.landscape_official);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+
+        Log.d(TAG,"in doChannels j is " + j);
+
+        switch (j) {
+            case 1:
+                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
+                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
+                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
+                break;
+            case 2:
+                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
+                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
+                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
+                break;
+            case 3:
+                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
+                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
+                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
+                break;
+            case 4:
+                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
+                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
+                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
+                break;
+        }
+
+        constraintSet.applyTo(constraintLayout);
+    }
+
     void openPhoto(View v) {
 
-        if (photo) {
-            Log.d(TAG,portrait.getDrawable().toString());
-            Intent intent = new Intent(this, PhotoActivity.class);
-            intent.putExtra("person", person);
-            intent.putExtra("addr", addr);
-            startActivity(intent);
-        }
+        Log.d(TAG,portrait.getDrawable().toString());
+        Intent intent = new Intent(this, PhotoActivity.class);
+        intent.putExtra("person", person);
+        intent.putExtra("addr", addr);
+        startActivity(intent);
 
     }
 

@@ -49,7 +49,7 @@ public class PhotoActivity  extends AppCompatActivity {
         name.setText(person.getInfo("name"));
         job.setText(person.getInfo("job"));
 
-        Picasso.get().load(person.getInfo("imageUrl")).into(portrait);
+        Picasso.get().load(person.getInfo("imageUrl")).error(R.drawable.brokenimage).into(portrait);
 
         View view = this.getWindow().getDecorView();
         if (person.getInfo("party").equals("Democratic Party")) {
