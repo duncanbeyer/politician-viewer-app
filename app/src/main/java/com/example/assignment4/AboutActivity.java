@@ -35,8 +35,6 @@ public class AboutActivity extends AppCompatActivity {
 
         setSupportActionBar(aboutToolbar);
 
-//        background = findViewById(R.id.background);
-//        background.setImageResource(R.drawable.about);
         box1 = findViewById(R.id.box1);
         box2 = findViewById(R.id.box2);
         box3 = findViewById(R.id.box3);
@@ -47,8 +45,21 @@ public class AboutActivity extends AppCompatActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         box3.setText(content);
 
+        box3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = "https://developers.google.com/civic-information/";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(s));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+                else {
+                    Log.d(TAG,"NULL when opening copright link.");
+                }
+            }
+        });
 
-    }
+        }
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
