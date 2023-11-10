@@ -162,7 +162,7 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
 
     void doBoxes(int i, int j) { // i is which info, j is which box we are on
         if (i > 3 || j > 3) {
-            doChannels(j);
+//            doChannels(j);
             return;
         }
 
@@ -238,43 +238,44 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
 
     }
 
-    void doChannels(int j) {
-
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            return;
-        }
-
-        ConstraintLayout constraintLayout = findViewById(R.id.landscape_official);
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(constraintLayout);
-
-        Log.d(TAG,"in doChannels j is " + j);
-
-        switch (j) {
-            case 1:
-                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
-                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
-                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
-                break;
-            case 2:
-                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
-                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
-                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
-                break;
-            case 3:
-                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
-                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
-                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
-                break;
-            case 4:
-                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
-                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
-                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
-                break;
-        }
-
-        constraintSet.applyTo(constraintLayout);
-    }
+//    void doChannels(int j) {
+//
+//        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+//            return;
+//        }
+//
+//        ConstraintLayout constraintLayout = findViewById(R.id.landscape_official);
+//        ConstraintSet constraintSet = new ConstraintSet();
+//        constraintSet.clone(constraintLayout);
+//
+//        Log.d(TAG,"in doChannels j is " + j);
+//
+//        switch (j) {
+//            case 1:
+//                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
+//                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
+//                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box1,ConstraintSet.BOTTOM,20);
+//                break;
+//            case 2:
+//                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
+//                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
+//                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box2,ConstraintSet.BOTTOM,20);
+//                break;
+//            case 3:
+//                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
+//                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
+//                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box3,ConstraintSet.BOTTOM,20);
+//                Log.d(TAG,"just set them to box3");
+//                break;
+//            case 4:
+//                constraintSet.connect(R.id.youtube_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
+//                constraintSet.connect(R.id.twitter_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
+//                constraintSet.connect(R.id.facebook_logo,ConstraintSet.TOP,R.id.box4,ConstraintSet.BOTTOM,20);
+//                break;
+//        }
+//
+//        constraintSet.applyTo(constraintLayout);
+//    }
 
     void openPhoto(View v) {
 

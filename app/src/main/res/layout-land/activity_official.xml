@@ -19,89 +19,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loc_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        >
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:gravity="center"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:backgroundTint="@color/prim_purple"
-            android:textColor="@color/white"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/party"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="(Democratic Party)"
-        android:paddingRight="40dp"
-        android:paddingLeft="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/prim_purple"
-        android:textColor="@color/white"
-        android:textSize="17dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/loc_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
-
-    <ImageView
-        android:id="@+id/portrait"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="6dp"
-        app:layout_constraintTop_toBottomOf="@id/party"
-        app:layout_constraintStart_toStartOf="@id/party"
-        app:layout_constraintEnd_toEndOf="@id/party"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <ImageView
-        android:id="@+id/party_logo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="5dp"
-        app:layout_constraintBottom_toBottomOf="@id/portrait"
-        app:layout_constraintStart_toStartOf="@id/portrait"
-        app:layout_constraintEnd_toEndOf="@id/portrait"
-        />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
-
     <ScrollView
         android:id="@+id/scrollable"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/loc_layout"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/party"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -114,73 +38,115 @@
             app:layout_constraintBottom_toBottomOf="parent"
             >
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Danny K. Davis"
-                android:gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/prim_purple"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/loc_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-
-                />
-
-            <TextView
-                android:id="@+id/job"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="U.S. Representative"
-                android:gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/prim_purple"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name"
                 app:layout_constraintEnd_toEndOf="parent"
+                >
 
-                />
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:backgroundTint="@color/prim_purple"
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/party"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="(Democratic Party)"
+            android:paddingRight="40dp"
+            android:paddingLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="14dp"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/loc_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            />
+
+    <ImageView
+        android:id="@+id/portrait"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        app:layout_constraintTop_toBottomOf="@id/party"
+        app:layout_constraintStart_toStartOf="@id/party"
+        app:layout_constraintEnd_toEndOf="@id/party"
+        app:layout_constraintBottom_toBottomOf="parent"
+/>
+
+    <ImageView
+        android:id="@+id/party_logo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/portrait"
+        app:layout_constraintStart_toStartOf="@id/portrait"
+        app:layout_constraintEnd_toEndOf="@id/portrait"
+        />
 
 
-            <ImageView
-                android:id="@+id/youtube_logo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/box1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/box1"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Danny K. Davis"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/prim_purple"
+        android:textColor="@color/white"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loc_layout"
+        app:layout_constraintEnd_toStartOf="@id/party"
 
-            <ImageView
-                android:id="@+id/twitter_logo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toEndOf="@id/youtube_logo"
-                app:layout_constraintTop_toBottomOf="@id/box1"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
+        />
 
-            <ImageView
-                android:id="@+id/facebook_logo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/box1"
-                app:layout_constraintStart_toStartOf="@id/box1" />
+    <TextView
+        android:id="@+id/job"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="U.S. Representative"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/prim_purple"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintEnd_toStartOf="@id/party"
 
+        />
 
             <TextView
                 android:id="@+id/label1"
@@ -190,7 +156,6 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="14dp"
-                android:backgroundTint="@color/prim_purple"
                 android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold"
@@ -206,14 +171,12 @@
                 android:gravity="left"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/prim_purple"
                 android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/label1"
                 app:layout_constraintTop_toTopOf="@id/label1"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/party"
 
                 />
 
@@ -223,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="14dp"
                 android:backgroundTint="@color/prim_purple"
                 android:textColor="@color/white"
                 android:textSize="17dp"
@@ -240,14 +203,12 @@
                 android:gravity="left"
                 android:layout_marginRight="40dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/prim_purple"
                 android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/box1"
                 app:layout_constraintTop_toTopOf="@id/label2"
-                app:layout_constraintEnd_toEndOf="parent"
-
+                app:layout_constraintEnd_toStartOf="@id/party"
 
                 />
 
@@ -257,8 +218,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/prim_purple"
+                android:layout_marginTop="14dp"
                 android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold"
@@ -274,13 +234,12 @@
                 android:gravity="left"
                 android:layout_marginRight="40dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/prim_purple"
                 android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/box1"
                 app:layout_constraintTop_toTopOf="@id/label3"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/party"
 
 
                 />
@@ -291,8 +250,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/prim_purple"
+                android:layout_marginTop="14dp"
                 android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold"
@@ -307,19 +265,49 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginRight="40dp"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/prim_purple"
                 android:textColor="@color/white"
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/box1"
                 app:layout_constraintTop_toTopOf="@id/label4"
-                app:layout_constraintEnd_toEndOf="parent"
-
+                app:layout_constraintEnd_toStartOf="@id/party"
 
                 />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <ImageView
+                android:id="@+id/youtube_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/box4"
+                app:layout_constraintEnd_toEndOf="@id/box1"
+                app:layout_constraintStart_toStartOf="@id/box1"/>
+
+            <ImageView
+                android:id="@+id/twitter_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/box4"
+                app:layout_constraintEnd_toEndOf="@id/box1"
+                />
+
+            <ImageView
+                android:id="@+id/facebook_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/box4"
+                app:layout_constraintStart_toStartOf="@id/box1" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
