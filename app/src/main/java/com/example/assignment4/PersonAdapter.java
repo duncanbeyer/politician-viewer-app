@@ -42,22 +42,15 @@ public class PersonAdapter  extends RecyclerView.Adapter<PersonHolder> {
         Person person = persons.get(position);
 
         holder.title.setText(person.getInfo("job"));
-        Log.d(TAG, person.getInfo("name"));
         holder.info.setText(person.getInfo("name") + " (" + person.getInfo("party") + ")");
         String urlString = person.getInfo("imageUrl");
 
         if (urlString.length() > 0) {
-            Log.d(TAG, "url: " + urlString);
             Picasso.get().load(urlString).error(R.drawable.brokenimage).into(holder.pic, new Callback() {
                 @Override
-                public void onSuccess() {
-                    Log.d(TAG,"success");
-                }
-
+                public void onSuccess() {}
                 @Override
-                public void onError(Exception e) {
-                    Log.e(TAG, "onError: " + e);
-                }
+                public void onError(Exception e) {}
             });
         }
         else {

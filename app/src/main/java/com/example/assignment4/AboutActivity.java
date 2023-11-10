@@ -20,13 +20,15 @@ public class AboutActivity extends AppCompatActivity {
     ImageView background;
     TextView box1, box2, box3, box4, box5;
     Toolbar aboutToolbar;
-
+String addr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        addr = getIntent().getStringExtra("addr");
 
         aboutToolbar = findViewById(R.id.toolbar);
         aboutToolbar.setTitle(R.string.toolbar_title);
@@ -76,7 +78,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("addr", addr);
         startActivity(intent);
     }
 }

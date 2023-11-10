@@ -97,7 +97,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         locationClient =
                 LocationServices.getFusedLocationProviderClient(this);
 
-        getLocation();
+
+        String temp = getIntent().getStringExtra("addr");
+        if (temp == null) {
+            getLocation();
+            Log.d(TAG,"string was null");
+        }
+        else {
+            Log.d(TAG,"String was not null: " + temp);
+            newAddr(temp);
+        }
+
 
     }
 
@@ -105,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent = new Intent(this, OfficialActivity.class);
         intent.putExtra("person", people.get(recyclerView.getChildLayoutPosition(v)));
-        intent.putExtra("addr", addr);
+        intent.putExtra("addr", sLocation);
         startActivity(intent);
     }
 
@@ -189,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (item.getItemId() == R.id.menuA) {
             Intent intent = new Intent(this, AboutActivity.class);
+            intent.putExtra("addr", sLocation);
             startActivity(intent);
             Log.d(TAG,"HELP PRESSED");
             return true;
@@ -238,7 +249,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         tryDownload();
-        tLocation.setText(addr);
+        sLocation = s;
+        tLocation.setText(sLocation);
     }
 
 
@@ -307,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     void tryDownload() {
 
         emptyList();
-        Log.d(TAG,"in tryDownload addr is " + addr);
+        Log.d(TAG,"in tryDownload addr is " + addr + " sLocation is " + sLocation);
         String url = "https://www.googleapis.com/civicinfo/v2/representatives?key=" + key + "&address=" + addr;
 
         RequestQueue queue = Volley.newRequestQueue(this);

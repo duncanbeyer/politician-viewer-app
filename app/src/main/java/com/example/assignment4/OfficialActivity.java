@@ -319,4 +319,16 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        intent.putExtra("addr", addr);
+
+        startActivity(intent);
+
+    }
 }
