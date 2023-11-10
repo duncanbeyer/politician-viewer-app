@@ -19,7 +19,7 @@ String  name, job, party, address, phone, email, website, imageUrl, fb, yt, x;
 
 
         job = role;
-        Log.d(TAG,data.toString());
+//        Log.d(TAG,data.toString());
 
         try {
             name = data.getString("name");

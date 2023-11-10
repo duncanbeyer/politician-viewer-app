@@ -30,7 +30,6 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
     ImageView portrait, partyLogo, twitterLogo, youtubeLogo, facebookLogo;
     String ytLink, xLink, fbLink;
     Person person;
-    boolean photo = false;
 
 
     @Override
@@ -277,6 +276,24 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
 //        constraintSet.applyTo(constraintLayout);
 //    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        outState.putParcelable("person", person);
+        outState.putString("addr", addr);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+
+        Log.d(TAG, "Restoring in official");
+
+        person = savedInstanceState.getParcelable("person");
+        addr = savedInstanceState.getString("addr");
+    }
+
     void openPhoto(View v) {
 
         Log.d(TAG,portrait.getDrawable().toString());
@@ -297,8 +314,6 @@ public class OfficialActivity  extends AppCompatActivity implements View.OnClick
             Log.d(TAG,"NULL when opening copright link.");
         }
     }
-
-
 
     @Override
     public void onClick(View view) {

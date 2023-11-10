@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tLocation;
     String sLocation;
     String addr;
-    ConstraintLayout loc_layout, noInternetLayout;
+    ConstraintLayout loc_layout;
     ArrayList<Person> people = new ArrayList<>();
     RecyclerView recyclerView;
     PersonAdapter adapter;
@@ -78,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loc_layout = findViewById(R.id.loc_layout);
         loc_layout.setBackgroundColor(getResources().getColor(R.color.prim_purple));
         tLocation = findViewById(R.id.location);
-
-        noInternetLayout = findViewById(R.id.no_int_layout);
-        noInternetLayout.setVisibility(View.GONE);
 
         tLocation = findViewById(R.id.location);
 
@@ -267,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 temp = offices.getJSONObject(i);
                 for (int j = 0;j < temp.getJSONArray("officialIndices").length();j++) {
                     Person tempGuy = setPerson(temp.getString("name"), officials.getJSONObject(temp.getJSONArray("officialIndices").getInt(j)));
-                    tempGuy.printPerson();
+//                    tempGuy.printPerson();
                     people.add(tempGuy);
                 }
             }
@@ -278,10 +275,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void noInternet() {
+
+        Log.d(TAG,"no internet");
+
         tLocation.setText(R.string.no_loc);
-        noInternetLayout.setVisibility(View.VISIBLE);
-        noInternetLayout.setBackground(getResources().getDrawable(R.drawable.shape));
-        recyclerView.setVisibility(View.GONE);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.no_title);
+        builder.setMessage(R.string.no_body);
+        builder.setPositiveButton(getString(R.string.alert_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG,"ok clicked");
+            }
+        });
+
+        builder.show();
+
 
 
     }
